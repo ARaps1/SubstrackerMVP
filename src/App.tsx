@@ -1,11 +1,7 @@
 import "./App.css";
-
+import SubscriptionDetected from "./pages/SubscriptionDetected";
 function App() {
-  return (
-    <>
-      <h1>Substracker MVP</h1>
-    </>
-  );
+  return <SubscriptionDetected />;
 }
 
 export default App;

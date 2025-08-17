@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import hotReloadExtension from "hot-reload-extension-vite";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,5 +18,12 @@ export default defineConfig({
     },
     outDir: "dist",
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    hotReloadExtension({
+      log: true,
+      backgroundPath: "src/background/index.ts",
+    }),
+    tailwindcss(),
+  ],
 });

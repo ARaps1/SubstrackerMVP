@@ -3,10 +3,28 @@ export default chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.commands.onCommand.addListener((command) => {
-  if (command === "open_side_panel") {
+  if (command === "side_panel") {
     chrome.windows.getCurrent((w) => {
       void chrome.sidePanel.open({ windowId: w.id! });
       console.log("Command/Ctrl + O triggered! :)");
     });
+  }
+
+  if (command === "reload") {
+    chrome.runtime.reload();
+    console.log("Command/Ctrl + E triggered! :)");
+    console.log("Ctest! :)");
+  }
+
+  if (command === "open_popup") {
+    void chrome.action.openPopup();
+  }
+});
+
+chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
+  console.log("Message received:", message);
+  if (message === "subscription-detected") {
+    console.log("Opening popup due to trial text detection");
+    void chrome.action.openPopup();
   }
 });

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Tracker Test Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .keyword {
+        background-color: #e3f2fd;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Subscription Tracker Content Script Test</h1>
+
+    <div class="test-section">
+      <h2>Initial Content</h2>
+      <p>
+        This page contains various subscription-related keywords to test the
+        content script:
+      </p>
+      <ul>
+        <li><span class="keyword">trial</span> - Free trial available</li>
+        <li>
+          <span class="keyword">subscription</span> - Monthly subscription plan
+        </li>
+        <li>
+          <span class="keyword">payment method</span> - Update your payment
+          method
+        </li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>Dynamic Content Test</h2>
+      <p>
+        Click the buttons below to add subscription-related content dynamically:
+      </p>
+
+      <button onclick="addTrialContent()">Add Trial Content</button>
+      <button onclick="addConfirmationContent()">
+        Add Confirmation Content
+      </button>
+      <button onclick="addPaymentContent()">Add Payment Content</button>
+      <button onclick="clearDynamicContent()">Clear Dynamic Content</button>
+
+      <div id="dynamic-content"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>SPA Navigation Test</h2>
+      <p>Simulate SPA navigation by changing the URL:</p>
+      <button onclick="simulateSPANavigation()">Simulate SPA Navigation</button>
+      <p>Current URL: <span id="current-url"></span></p>
+    </div>
+
+    <script>
+      // Update current URL display
+      function updateUrlDisplay() {
+        document.getElementById("current-url").textContent =
+          window.location.href;
+      }
+      updateUrlDisplay();
+
+      // Dynamic content functions
+      function addTrialContent() {
+        const content = document.getElementById("dynamic-content");
+        const div = document.createElement("div");
+        div.innerHTML =
+          '<p><strong>New Trial Content:</strong> Start your <span class="keyword">free trial</span> today! <span class="keyword">Try free</span> for 30 days.</p>';
+        content.appendChild(div);
+      }
+
+      function addConfirmationContent() {
+        const content = document.getElementById("dynamic-content");
+        const div = document.createElement("div");
+        div.innerHTML =
+          '<p><strong>Confirmation:</strong> Your <span class="keyword">subscription confirmation</span> has been sent. <span class="keyword">Payment successful</span>!</p>';
+        content.appendChild(div);
+      }
+
+      function addPaymentContent() {
+        const content = document.getElementById("dynamic-content");
+        const div = document.createElement("div");
+        div.innerHTML =
+          '<p><strong>Payment Info:</strong> Please update your <span class="keyword">billing information</span> and <span class="keyword">credit card</span> details.</p>';
+        content.appendChild(div);
+      }
+
+      function clearDynamicContent() {
+        document.getElementById("dynamic-content").innerHTML = "";
+      }
+
+      function simulateSPANavigation() {
+        // Simulate URL change without page reload
+        const newUrl = window.location.href + "?page=" + Date.now();
+        window.history.pushState({}, "", newUrl);
+        updateUrlDisplay();
+
+        // Add some content after "navigation"
+        setTimeout(() => {
+          addTrialContent();
+        }, 100);
+      }
+
+      // Listen for popstate events (back/forward navigation)
+      window.addEventListener("popstate", () => {
+        updateUrlDisplay();
+      });
+    </script>
+  </body>
+</html>
